@@ -17,7 +17,9 @@ FROM openjdk:17-slim
 WORKDIR /portfolio_website
 
 # Copy the built jar file from the build stage
-COPY --from=build /portfolio_website/target/portfolio_website-0.0.1-SNAPSHOT.jar portfolio_website.jar
+# COPY --from=build /portfolio_website/target/portfolio_website-0.0.1-SNAPSHOT.jar portfolio_website.jar
+COPY --from=build /portfolio_website/target/Portfolio_Website-0.0.1-SNAPSHOT.jar portfolio_website.jar
+
 
 # Expose the port your app listens on
 EXPOSE 8080
