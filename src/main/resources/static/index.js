@@ -181,7 +181,7 @@ function openProject(event) {
         }
         document.getElementById('project-technology').innerHTML = tool;
 
-        fetch(`http://localhost:8080/api/project_image/${event.target.id}`)
+        fetch(`/api/project_image/${event.target.id}`)
           .then(response => response.json())
           .then(projectimages => {
             let project_image = '';
@@ -272,7 +272,7 @@ function saveContact() {
     subject: `${document.getElementById('contact-subject').value}`
   };
 
-  fetch("http://localhost:8080/api/saveContact", {
+  fetch("/api/saveContact", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -306,7 +306,7 @@ function getPersonaldetails() {
     document.getElementById('spinners').style.display = 'flex';
     document.getElementById('spinner-content').innerText = 'Loading Nimit Shah ...';
     if (sessionStorage.getItem('personaldetails') == null) {
-      fetch('http://localhost:8080/api/personaldetails')
+      fetch('/api/personaldetails')
         .then(response => response.json())
         .then(data => {
           setPersonalDetails(data);
@@ -389,7 +389,7 @@ function setPersonalDetails(data) {
 function getSkills() {
   try {
     if (sessionStorage.getItem('skills') == null) {
-      fetch("http://localhost:8080/api/skill")
+      fetch("/api/skill")
         .then(response => response.json())
         .then(data => {
           sessionStorage.setItem('skills', JSON.stringify(data));
@@ -443,7 +443,7 @@ function setSkills() {
 function getCertificate() {
   try {
     if (sessionStorage.getItem('certificate') == null) {
-      fetch("http://localhost:8080/api/certificate")
+      fetch("/api/certificate")
         .then(response => response.json())
         .then(data => {
           sessionStorage.setItem('certificate', JSON.stringify(data));
@@ -576,7 +576,7 @@ function detectMimeTypeFromBase64(base64) {
 function getProject() {
   try {
     if (sessionStorage.getItem('project') == null) {
-      fetch("http://localhost:8080/api/project")
+      fetch("/api/project")
         .then(response => response.json())
         .then(data => {
           setProject(data);
