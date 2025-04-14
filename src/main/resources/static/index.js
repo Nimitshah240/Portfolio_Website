@@ -204,8 +204,10 @@ function openProject(event) {
               document.getElementById('spinners').style.display = 'none';
               console.error(error);
             }
-          });
-
+          }).catch(error => {
+            showToast('Failed to get project images', 'error');
+            document.getElementById('spinners').style.display = 'none';
+          })
       }
     });
 
@@ -397,7 +399,9 @@ function getSkills() {
           sessionStorage.setItem('skills', JSON.stringify(data));
           skills = data;
           setSkills();
-        });
+        }).catch(err => {
+          showToast('Failed to get skills', 'error');
+        })
     } else {
       skills = JSON.parse(sessionStorage.getItem('skills'));
       setSkills();
@@ -431,7 +435,7 @@ function setSkills() {
     document.getElementById('spinners').style.display = 'none';
   } catch (error) {
     document.getElementById('spinners').style.display = 'none';
-
+    showToast('Failed to set skills', 'error')
   }
 }
 
@@ -450,7 +454,9 @@ function getCertificate() {
         .then(data => {
           sessionStorage.setItem('certificate', JSON.stringify(data));
           setCertificate(data);
-        });
+        }).catch(err => {
+          showToast('Failed to get certificate', 'error')
+        })
     } else {
       setCertificate(JSON.parse(sessionStorage.getItem('certificate')));
     }
@@ -584,6 +590,8 @@ function getProject() {
           setProject(data);
           sessionStorage.setItem('project', JSON.stringify(data));
           projectData = data;
+        }).catch(error => {
+          showToast('Failed to get project', 'error');
         });
     } else {
       setProject(JSON.parse(sessionStorage.getItem('project')));
@@ -621,5 +629,6 @@ function setProject(data) {
     project.innerHTML = html;
   } catch (error) {
     console.error(error);
+    showToast('Failed to set project', 'error');
   }
 }
