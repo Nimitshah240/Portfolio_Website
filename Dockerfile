@@ -22,7 +22,7 @@ COPY --from=build /portfolio_website/target/Portfolio_Website-0.0.1-SNAPSHOT.jar
 
 
 # Expose the port your app listens on
-EXPOSE 8080
+EXPOSE $PORT
 
 # Start the application
 ENTRYPOINT ["java", "-jar", "portfolio_website.jar"]
