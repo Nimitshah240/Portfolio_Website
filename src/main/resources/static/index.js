@@ -107,6 +107,7 @@ document.addEventListener("DOMContentLoaded", () => {
 // Updated Version - -
 // Input - message and isSuccess
 function showToast(message, isSuccess) {
+  document.getElementById('toast').style.display = 'flex';
   toast.innerHTML = `
           <div class="toast__icon">
               <svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
@@ -124,7 +125,8 @@ function showToast(message, isSuccess) {
 
   setTimeout(() => {
     toast.className = "toast"
-  }, 3000)
+    document.getElementById('toast').style.display = 'none';
+  }, 3000);
 
   const closeBtn = toast.querySelector(".toast__close")
   closeBtn.addEventListener("click", () => {
