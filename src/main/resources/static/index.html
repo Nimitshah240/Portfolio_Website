@@ -15,26 +15,44 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
 
+    <script>
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js';
+    </script>
 </head>
 
-<body>
+<body onload="getPersonaldetails(event)">
     <!-- #MAIN -->
+    <!-- Spinner -->
+    <div class="spinners" id="spinners">
+        <div class="lds-roller">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <p id="spinner-content">Loading ...</p>
+    </div>
+    <!-- Spinner -->
     <main>
-
 
         <!-- #SIDEBAR -->
         <aside class="sidebar" data-sidebar>
             <div class="sidebar-info">
-                <a href="./image/aakash_bnw.png" target="_blank" rel="noopener noreferrer" title="Click me!">
+                <a href="./image/Nimit.png" target="_blank" rel="noopener noreferrer" title="Click me!">
                     <figure class="avatar-box">
                         <img src="image\my-avatar.png" alt="Nimit Shah" width="80">
                         <span class="active-status" title="Available for work!"></span>
                     </figure>
                 </a>
                 <div class="info-content">
-                    <h1 class="name" title="Aakash Rajbanshi">Nimit Shah</h1>
-                    <p class="title">Java Developer</p>
+                    <h1 class="name" title="Nimit Shah" id="name"></h1>
+                    <p class="title" id="developer"></p>
                 </div>
                 <button class="info_more-btn" data-sidebar-btn>
                     <span>Show Contacts</span>
@@ -50,8 +68,8 @@
                         </div>
                         <div class="contact-info">
                             <p class="contact-title">Email</p>
-                            <a href="mailto:nimitshah240@gmail.com" target="_blank" class="contact-link"><span
-                                    class="__cf_email__">nimitshah240@gmail.com</span></a>
+                            <a href="" target="_blank" class="contact-link"
+                                id="email"></a><!-- Data come from properties file -->
                         </div>
                     </li>
                     <li class="contact-item">
@@ -60,7 +78,7 @@
                         </div>
                         <div class="contact-info">
                             <p class="contact-title">Phone</p>
-                            <a href="tel:+91 6353756701" class="contact-link">+91 6353756701</a>
+                            <a href="" class="contact-link" id="phone"></a><!-- Data come from properties file -->
                         </div>
                     </li>
                     <li class="contact-item">
@@ -69,36 +87,37 @@
                         </div>
                         <div class="contact-info">
                             <p class="contact-title">Location</p>
-                            <address>Gujarat, India</address>
+                            <address id="location"></address><!-- Data come from properties file -->
                         </div>
                     </li>
                 </ul>
                 <div class="separator"></div>
                 <ul class="social-list">
                     <li class="social-item">
-                        <a href="https://www.linkedin.com/in/nimit-shah-4623411b8/" target="_blank" class="social-link">
+                        <a href="" target="_blank" id="linkedin" class="social-link">
                             <ion-icon name="logo-linkedin"></ion-icon>
-                        </a>
+                        </a><!-- Data come from properties file -->
                     </li>
                     <li class="social-item">
-                        <a href="https://github.com/Nimitshah240" target="_blank" class="social-link">
+                        <a href="" target="_blank" id="github" class="social-link">
                             <ion-icon name="logo-github"></ion-icon>
-                        </a>
+                        </a><!-- Data come from properties file -->
                     </li>
                     <li class="social-item">
-                        <a href="https://www.instagram.com/_nimittt_3000_/" target="_blank" class="social-link">
+                        <a href="" target="_blank" id="instagram" class="social-link">
                             <ion-icon name="logo-instagram"></ion-icon>
-                        </a>
+                        </a><!-- Data come from properties file -->
                     </li>
                     <li class="social-item">
-                        <a href="https://wa.me/6353756701" target="_blank" class="social-link">
+                        <a href="" target="_blank" id="whatsapp" class="social-link">
                             <ion-icon name="logo-whatsapp"></ion-icon>
-                        </a>
+                        </a><!-- Data come from properties file -->
                     </li>
                     <li class="social-item">
-                        <button type="button" onclick="window.open('./image/phone.svg')" class="social-link" title="CV">
-                            <ion-icon name="document-text-outline" title="CV"></ion-icon>
-                        </button>
+                        <!-- <button type="button" class="social-link" title="CV"> -->
+                        <ion-icon name="document-text-outline" class="social-link" style="cursor: pointer;" id="cv-icon"
+                            title="CV"></ion-icon>
+                        <!-- </button>Data come from properties file -->
                     </li>
                 </ul>
             </div>
@@ -136,20 +155,12 @@
                 <header>
                     <h2 class="h2 article-title">About me</h2>
                 </header>
-                <section class="about-text">
-                    <p>
-                        A passionate Java Developer with strong skills in core Java, Spring Boot, REST APIs, and
-                        SQL-based backend development. Experienced in building clean, efficient, and scalable
-                        applications with a focus on performance and maintainability.
-                    </p>
-                    <p>
-                        I love solving real-world problems through code and enjoy working in agile teams to deliver
-                        practical, business-ready solutions. Always eager to learn and grow, I’m actively improving my
-                        skills in advanced Java and modern backend technologies.<br>
-                        Looking to collaborate with forward-thinking teams or clients—let’s turn your vision into
-                        reality!
+
+                <section class="about-text" id="description">
+                    <!-- Description come from properties file -->
                 </section>
                 <!-- service -->
+
                 <section class="service">
                     <h3 class="h3 service-title">What i'm doing</h3>
                     <ul class="service-list">
@@ -178,46 +189,12 @@
                         </li>
                     </ul>
                 </section>
-                <div class="modal-container" data-modal-container>
-                    <div class="overlay" data-overlay></div>
-                    <section class="testimonials-modal">
-                        <button class="modal-close-btn" data-modal-close-btn>
-                            <ion-icon name="close-outline"></ion-icon>
-                        </button>
-                        <div class="modal-img-wrapper">
-                            <figure class="modal-avatar-box">
-                                <img src="./image/avatar-1.png" alt="Daniel lewis" width="80" data-modal-img>
-                            </figure>
-                            <img src="./image/icon-quote.svg" alt="quote icon">
-                        </div>
-                        <div class="modal-content">
-                            <h4 class="h3 modal-title" data-modal-title>Daniel lewis</h4>
-                            <time datetime="2021-06-14">14 June, 2021</time>
-                            <div data-modal-text>
-                                <p>
-                                    Richard was hired to create a corporate identity. We were very pleased with the work
-                                    done. She has a
-                                    lot of experience
-                                    and is very concerned about the needs of client. Lorem ipsum dolor sit amet,
-                                    ullamcous cididt
-                                    consectetur adipiscing
-                                    elit, seds do et eiusmod tempor incididunt ut laborels dolore magnarels alia.
-                                </p>
-                            </div>
-                        </div>
-                    </section>
-                </div>
 
                 <!-- clients -->
                 <section class="clients">
                     <h3 class="h3 clients-title">Skills</h3>
-                    <ul class="clients-list has-scrollbar clients-list-project">
-                        <li class="clients-item-n">
-                            <a href="https://dart.dev/" target="_blank">
-                                <img src="./image/Flutter.svg" alt="client logo" class="project-image">
-                                <h1 class="project-title">Goethe</h1>
-                            </a>
-                        </li>
+                    <ul class="clients-list has-scrollbar clients-list-project" id="skill">
+                        <!-- Data will come from backend -->
                     </ul>
                 </section>
             </article>
@@ -263,15 +240,9 @@
                         </div>
                         <h3 class="h3">Certificates</h3>
                     </div>
-                    <!-- <h3 class="h3 clients-title">Certificates</h3> -->
-                    <ul class="clients-list has-scrollbar clients-list-project">
-                        <li class="clients-item-n">
-                            <a href="https://dart.dev/" target="_blank">
-                                <img src="./image/Flutter.svg" alt="client logo" class="project-image">
-                                <h1 class="project-title">Goethe</h1>
-                                <h3 class="project-category">2025</h3>
-                            </a>
-                        </li>
+                    <ul class="clients-list has-scrollbar clients-list-project" id="certificate">
+                        <!-- Certificate will come from backend -->
+                    </ul>
                 </section>
             </article>
 
@@ -282,43 +253,8 @@
                     <h2 class="h2 article-title">Portfolio</h2>
                 </header>
                 <section class="projects">
-                    <ul class="project-list">
-                        <li class="project-item  active" data-filter-item data-category="applications">
-                            <button onclick="openProject(event)" target="_blank">
-                                <figure class="project-img">
-                                    <div class="project-item-icon-box">
-                                        <ion-icon name="information-circle-outline"></ion-icon>
-                                    </div>
-                                    <img src="./image/ambitionguru.png" alt="Ambition Guru" loading="lazy">
-                                </figure>
-                                <h3 class="project-title">Ambition Guru</h3>
-                                <p class="project-category">Application</p>
-                            </button>
-                        </li>
-                        <li class="project-item  active" data-filter-item data-category="applications">
-                            <button onclick="openProject(event)" target="_blank">
-                                <figure class="project-img">
-                                    <div class="project-item-icon-box">
-                                        <ion-icon name="information-circle-outline"></ion-icon>
-                                    </div>
-                                    <img src="./image/ambitionguru.png" alt="Ambition Guru" loading="lazy">
-                                </figure>
-                                <h3 class="project-title">Ambition Guru</h3>
-                                <p class="project-category">Application</p>
-                            </button>
-                        </li>
-                        <li class="project-item  active" data-filter-item data-category="applications">
-                            <button onclick="openProject(event)" target="_blank">
-                                <figure class="project-img">
-                                    <div class="project-item-icon-box">
-                                        <ion-icon name="information-circle-outline"></ion-icon>
-                                    </div>
-                                    <img src="./image/ambitionguru.png" alt="Ambition Guru" loading="lazy">
-                                </figure>
-                                <h3 class="project-title">Ambition Guru</h3>
-                                <p class="project-category">Application</p>
-                            </button>
-                        </li>
+                    <ul class="project-list" id="project">
+                        <!-- Project list will come from backend -->
                     </ul>
                 </section>
             </article>
@@ -328,126 +264,100 @@
                         <i class="fa-solid fa-xmark"></i>
                     </div>
                     <div class="header-section">
-                        <div class="logo-section">
-                            <a href="https://dart.dev/" target="_blank">
-                                <img src="./image/Flutter.svg" alt="client logo" class="project-logo">
-                            </a>
+                        <div class="logo-section" id="logo">
+                            <!-- Logo will come from backend -->
                         </div>
                         <div class="title-section">
-                            <h1 class="project-title-n">Project 1 aksjdksfj - asdjksfdjsfkj - askdskfjdlkjg</h1>
+                            <h1 class="project-title-n" id="project-title">
+                                <!-- Name will come from backend  -->
+                            </h1>
                         </div>
                     </div>
                     <div class="description-section">
                         <h3>Details :</h3>
-                        <p class="description">Lorem Ipsum is simply dummy text of the printing and typesetting
-                            industry. Lorem Ipsum has
-                            been the industry's standard dummy text ever since the 1500s, when an unknown printer took a
-                            galley of type and scrambled it to make a type specimen book. It has survived not only five
-                            centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
-                            It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum
-                            passages, and more recently with desktop publishing software like Aldus PageMaker including
-                            versions of Lorem Ipsum.
+                        <p class="description" id="project-description">
+                            <!-- Description will come from backend -->
                         </p>
                     </div>
-                    <div class="links-section">
-                        <p class="link"><b>Github :</b>
-                            <a href="www.google.com" class="project-link">
-                                www.google.com
-                                <ion-icon name="link-outline"></ion-icon>
-                            </a>
-                        </p>
-                        <p class="link"><b>Link :</b>
-                            <a href="https://www.google.com" target="_blank" class="project-link">
-                                www.google.com
-                                <ion-icon name="link-outline"></ion-icon>
-                            </a>
-                        </p>
+                    <div class="links-section" id="link-section">
+                        <!-- Link will come from backend -->
                     </div>
                     <div class="technology-section">
                         <h3> Technologies :</h3>
-                        <ul class="clients-list has-scrollbar clients-list-project">
-                            <li class=" clients-item-n">
-                                <a href="https://www.figma.com/" target="_blank">
-                                    <img src="./image/Flutter.svg" alt="client logo" class="technology">
-                                </a>
-                            </li>
+                        <ul class="clients-list has-scrollbar clients-list-project" id="project-technology">
+                            <!-- Technologies will come from backend -->
                         </ul>
                     </div>
                     <div class="images-section">
                         <h3>Images :</h3>
-                        <ul class="clients-list clients-list-project has-scrollbar">
-                            <li>
-                                <a href="https://dart.dev/" target="_blank">
-                                    <img src="./image/Flutter.svg" alt="client logo" class="project-image">
-                                </a>
-                            </li>
+                        <ul class="clients-list clients-list-project has-scrollbar" id="project-image">
+                            <!-- Images will come from backend -->
                         </ul>
                     </div>
-
                 </div>
             </section>
 
             <!-- #BLOG  This comment by Nimit Shah. I'll use this blog when i start making blog-->
             <!-- <article class="blog" data-page="blog">
-                <header>
-                    <h2 class="h2 article-title">Blog</h2>
-                </header>
-                <section class="blog-posts">
-                    <ul class="blog-posts-list">
-                        <li class="blog-post-item">
-                            <a href="https://aakash58.hashnode.dev/flutter-vs-flock-exploring-the-new-fork-in-cross-platform-development"
-                                target="_blank">
-                                <figure class="blog-banner-box">
-                                    <img src="./assets/blogs/blog-2.png"
-                                        alt="Flutter vs. Flock: Cross-Platform Evaluation" loading="lazy">
-                                </figure>
-                                <div class="blog-content">
-                                    <div class="blog-meta">
-                                        <p class="blog-category">Blog</p>
-                                        <span class="dot"></span>
-                                        <time datetime="2024-11-18">Nov 18, 2024</time>
-                                    </div>
-                                    <h3 class="h3 blog-item-title">Flutter vs. Flock: Cross-Platform Evaluation </h3>
-                                    <p class="blog-text"
-                                        style="overflow: hidden; display: -webkit-box; -webkit-box-orient: vertical;">
-                                        Explore the differences between Flutter and Flock, a new fork focused on faster
-                                        development and community-driven cross-platform app creation </p>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="blog-post-item">
-                            <a href="https://aakash58.hashnode.dev/the-future-of-cross-platform-apps-flutters-role-in-2024-and-beyond"
-                                target="_blank">
+        <header>
+            <h2 class="h2 article-title">Blog</h2>
+        </header>
+        <section class="blog-posts">
+            <ul class="blog-posts-list">
+                <li class="blog-post-item">
+                    <a href="https://aakash58.hashnode.dev/flutter-vs-flock-exploring-the-new-fork-in-cross-platform-development"
+                        target="_blank">
+                        <figure class="blog-banner-box">
+                            <img src="./assets/blogs/blog-2.png"
+                                alt="Flutter vs. Flock: Cross-Platform Evaluation" loading="lazy">
+                        </figure>
+                        <div class="blog-content">
+                            <div class="blog-meta">
+                                <p class="blog-category">Blog</p>
+                                <span class="dot"></span>
+                                <time datetime="2024-11-18">Nov 18, 2024</time>
+                            </div>
+                            <h3 class="h3 blog-item-title">Flutter vs. Flock: Cross-Platform Evaluation </h3>
+                            <p class="blog-text"
+                                style="overflow: hidden; display: -webkit-box; -webkit-box-orient: vertical;">
+                                Explore the differences between Flutter and Flock, a new fork focused on faster
+                                development and community-driven cross-platform app creation </p>
+                        </div>
+                    </a>
+                </li>
+                <li class="blog-post-item">
+                    <a href="https://aakash58.hashnode.dev/the-future-of-cross-platform-apps-flutters-role-in-2024-and-beyond"
+                        target="_blank">
 
-                                <figure class="blog-banner-box">
-                                    <img src="./assets/blogs/blog-1.png"
-                                        alt="Flutter's Impact on Future Cross-Platform Apps" loading="lazy">
-                                </figure>
+                        <figure class="blog-banner-box">
+                            <img src="./assets/blogs/blog-1.png"
+                                alt="Flutter's Impact on Future Cross-Platform Apps" loading="lazy">
+                        </figure>
 
-                                <div class="blog-content">
-                                    <div class="blog-meta">
-                                        <p class="blog-category">Blog</p>
-                                        <span class="dot"></span>
-                                        <time datetime="2024-11-13">Nov 13, 2024</time>
-                                    </div>
+                        <div class="blog-content">
+                            <div class="blog-meta">
+                                <p class="blog-category">Blog</p>
+                                <span class="dot"></span>
+                                <time datetime="2024-11-13">Nov 13, 2024</time>
+                            </div>
 
-                                    <h3 class="h3 blog-item-title">Flutter's Impact on Future Cross-Platform Apps </h3>
+                            <h3 class="h3 blog-item-title">Flutter's Impact on Future Cross-Platform Apps </h3>
 
-                                    <p class="blog-text"
-                                        style="overflow: hidden; display: -webkit-box; -webkit-box-orient: vertical;">
-                                        Explore Flutter's growing influence on cross-platform app development in 2024
-                                        and its future potential across mobile, web, and IoT devices </p>
-                                </div>
+                            <p class="blog-text"
+                                style="overflow: hidden; display: -webkit-box; -webkit-box-orient: vertical;">
+                                Explore Flutter's growing influence on cross-platform app development in 2024
+                                and its future potential across mobile, web, and IoT devices </p>
+                        </div>
 
-                            </a>
-                        </li>
+                    </a>
+                </li>
 
 
-                    </ul>
+            </ul>
 
-                </section>
+        </section>
 
-            </article> -->
+    </article> -->
 
 
             <!--  #EXPERIENCE -->
@@ -479,7 +389,20 @@
                                     <li> Gained hands-on experience with Git, version control, and code optimization
                                         techniques.</li>
                                 </ul>
+                            </span>
                         </li>
+                        <!-- Uncomment when you get Job NIMIT SHAH -->
+                        <!-- <li class="timeline-item">
+                            <h4 class="h4 timeline-item-title">Trainee Java Developer</h4>
+                            <p class="timeline-text">Yama Technologies</p>
+                            <span data-start-date="2025-04-14" data-end-date="present">April, 2025 — Present
+                                &nbsp;
+                                &#8226; <span class="duration"></span>
+                                <p class="timeline-text"><i>Gujarat, India</i></p>
+                                <ul class="timeline-text">
+                                </ul>
+                            </span>
+                        </li> -->
                     </ol>
                 </section>
             </article>
@@ -500,31 +423,26 @@
                 <!-- contact form -->
                 <section class="contact-form">
                     <h3 class="h3 form-title">Contact Form</h3>
-                    <form action="https://api.web3forms.com/submit" method="POST" class="form" data-form>
-                        <input type="hidden" name="access_key" value="3bfdc8c6-a387-429f-a1a4-3c397d132d11">
-                        <input type="hidden" name="from_name" value="Portfolio">
-                        <div class="input-wrapper">
-                            <input type="text" name="fullname" class="form-input" placeholder="Full name" required
-                                data-form-input>
-                            <input type="email" name="email" class="form-input" placeholder="Email address" required
-                                data-form-input>
-                        </div>
-                        <input type="text" name="subject" class="form-input" placeholder="Subject" required
-                            data-form-input>
-                        <textarea name="message" class="form-input" placeholder="Your Message" required
-                            data-form-input></textarea>
-                        <button class="form-btn" type="submit" disabled data-form-btn>
-                            <ion-icon name="paper-plane"></ion-icon>
-                            <span>Send Message</span>
-                        </button>
-                    </form>
+                    <div class="input-wrapper">
+                        <input type="text" name="fullname" id="contact-name" class="form-input" placeholder="Full name"
+                            required>
+                        <input type="email" name="email" id="contact-email" class="form-input"
+                            placeholder="Email address" required>
+                    </div>
+                    <input type="text" name="subject" id="contact-subject" class="form-input" placeholder="Subject"
+                        required>
+                    <textarea name="message" id="contact-message" class="form-input" placeholder="Your Message"
+                        required></textarea>
+                    <button class="form-btn" type="submit" onclick="saveContact(event)" data-form-btn>
+                        <ion-icon name="paper-plane"></ion-icon>
+                        <span>Send Message</span>
+                    </button>
                 </section>
-
                 <script data-cfasync="false"
                     src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
                 <script src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
             </article>
-            <div id="toast" class="toast">NIMIIIIIIIII</div>
+            <div id="toast" class="toast"></div>
 
         </div>
     </main>
