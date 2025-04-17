@@ -2581,7 +2581,7 @@ textarea.form-input::-webkit-resizer {
     position: fixed;
     top: 0;
     z-index: 10;
-    display: none;
+    display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
