@@ -15,14 +15,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import static com.example.Portfolio_Website.Emailing.sendEmail;
+
 // Developer - Nimit Shah
-// Version - v0.0.0 - Beta
+// First-Version - v0.0.0 - Beta
+// Current Version - v0.1.0
 // Developed on - 14/04/2025
 // Description - RestController file to handle all the HTTP Request to get different information.
 // Updated on - -
 // Updated Version - -
 // Input - none
-//@CrossOrigin(origins = "http://localhost")
 @RestController
 public class Restcontroller {
 
@@ -44,15 +46,16 @@ public class Restcontroller {
     }
 
 
-
     // Developer - Nimit Shah
-    // Version - v0.0.0 - Beta
+    // First-Version - v0.0.0 - Beta
+    // Current Version - v0.1.0
     // Developed on - 14/04/2025
     // Description - Handles HTTP GET requests to the root URL ("/").
     //               Loads and returns the content of the static index.html file from classpath.
     //               Used to serve the main landing page of the portfolio website.
-    // Updated on - -
-    // Updated Version - -
+    // Updated on - 17/04/2025
+    // Update - Added catch block with emailing on error.
+    // Updated Version - v0.1.0
     // Input - none
     @GetMapping("/")
     public String home(Model model) {
@@ -60,114 +63,145 @@ public class Restcontroller {
             ClassPathResource htmlFile = new ClassPathResource("static/index.html");
             return StreamUtils.copyToString(htmlFile.getInputStream(), StandardCharsets.UTF_8);
         } catch (Exception e) {
-            System.err.println(e);
+            sendEmail("nimitshah240@gmail.com", "Error", e.getMessage());
             throw new RuntimeException(e);
         }
     }
 
 
-
     // Developer - Nimit Shah
-    // Version - v0.0.0 - Beta
+    // First-Version - v0.0.0 - Beta
+    // Current Version - v0.1.0
     // Developed on - 14/04/2025
     // Description - Handles HTTP GET requests to the root URL ("/api/personaldetails").
     //               Loads and returns all the personal details from the application.properties file.
     //               Used to serve the information for main landing page of the portfolio website.
-    // Updated on - -
-    // Updated Version - -
+    // Updated on - 17/04/2025
+    // Update - Added catch block with emailing on error.
+    // Updated Version - v0.1.0
     // Input - none
     @GetMapping("/api/personaldetails")
     public PersonalDetail getPersonaldetails() {
         try {
             return personaldetail;
         } catch (Exception e) {
-            System.err.println(e);
+            sendEmail("nimitshah240@gmail.com", "Error", e.getMessage());
             throw new RuntimeException(e);
         }
     }
 
 
-
     // Developer - Nimit Shah
-    // Version - v0.0.0 - Beta
+    // First-Version - v0.0.0 - Beta
+    // Current Version - v0.1.0
     // Developed on - 14/04/2025
     // Description - Handles HTTP GET requests to the root URL ("/api/skills").
     //               Loads and returns all the skills from the database.
     //               Used to serve the skills for main landing page of the portfolio website.
-    // Updated on - -
-    // Updated Version - -
+    // Updated on - 17/04/2025
+    // Update - Added catch block with emailing on error.
+    // Updated Version - v0.1.0
     // Input - none
     @GetMapping("/api/skill")
     @ResponseBody
     public List<Skills> getAllStudents() {
-        return skillrepository.findAll();
+        try {
+            return skillrepository.findAll();
+        } catch (Exception e) {
+            sendEmail("nimitshah240@gmail.com", "Error", e.getMessage());
+            throw new RuntimeException(e);
+        }
     }
 
 
-
     // Developer - Nimit Shah
-    // Version - v0.0.0 - Beta
+    // First-Version - v0.0.0 - Beta
+    // Current Version - v0.1.0
     // Developed on - 14/04/2025
     // Description - Handles HTTP GET requests to the root URL ("/api/certificate").
     //               Loads and returns all the certificates from the database.
     //               Used to serve the certificates for education page of the portfolio website.
-    // Updated on - -
-    // Updated Version - -
+    // Updated on - 17/04/2025
+    // Update - Added catch block with emailing on error.
+    // Updated Version - v0.1.0
     // Input - none
     @GetMapping("/api/certificate")
     @ResponseBody
     public List<Certificate> getCertificate() {
-        return certificaterepository.findAllByOrderByIdAsc();
+        try {
+            return certificaterepository.findAllByOrderByIdAsc();
+        } catch (Exception e) {
+            sendEmail("nimitshah240@gmail.com", "Error", e.getMessage());
+            throw new RuntimeException(e);
+        }
     }
 
 
-
     // Developer - Nimit Shah
-    // Version - v0.0.0 - Beta
+    // First-Version - v0.0.0 - Beta
+    // Current Version - v0.1.0
     // Developed on - 14/04/2025
     // Description - Handles HTTP GET requests to the root URL ("/api/project").
     //               Loads and returns all the projects from the database.
     //               Used to serve the project for portfolio page of the portfolio website.
-    // Updated on - -
-    // Updated Version - -
+    // Updated on - 17/04/2025
+    // Update - Added catch block with emailing on error.
+    // Updated Version - v0.1.0
     // Input - none
     @GetMapping("/api/project")
     @ResponseBody
     public List<Project> getProject() {
-        return projectrepository.findAllByOrderByIdAsc();
+        try {
+            return projectrepository.findAllByOrderByIdAsc();
+        } catch (Exception e) {
+            sendEmail("nimitshah240@gmail.com", "Error", e.getMessage());
+            throw new RuntimeException(e);
+        }
     }
 
 
-
     // Developer - Nimit Shah
-    // Version - v0.0.0 - Beta
+    // First-Version - v0.0.0 - Beta
+    // Current Version - v0.1.0
     // Developed on - 14/04/2025
     // Description - Handles HTTP GET requests to the root URL ("/api/project_image/{p_id}").
     //               Loads and returns all the images of the particular project from the database.
     //               Used to serve the project images for Project information page of the portfolio website.
-    // Updated on - -
-    // Updated Version - -
+    // Updated on - 17/04/2025
+    // Update - Added catch block with emailing on error.
+    // Updated Version - v0.1.0
     // Input - Project Id
     @GetMapping("/api/project_image/{p_id}")
     @ResponseBody
     public List<Project_Image> getProjectImage(@PathVariable Long p_id) {
-        return projectimagerepository.findBypId(p_id); // or repo.findById(id).get()
+        try {
+            return projectimagerepository.findBypId(p_id); // or repo.findById(id).get()
+        } catch (Exception e) {
+            sendEmail("nimitshah240@gmail.com", "Error", e.getMessage());
+            throw new RuntimeException(e);
+        }
     }
 
 
-
     // Developer - Nimit Shah
-    // Version - v0.0.0 - Beta
+    // First-Version - v0.0.0 - Beta
+    // Current Version - v0.1.0
     // Developed on - 14/04/2025
     // Description - Handles HTTP POST requests to the root URL ("/api/saveContact").
     //               Get Data from the user and store in the database.
-    // Updated on - -
-    // Updated Version - -
+    // Updated on - 17/04/2025
+    // Update - Added catch block with emailing on error.
+    // Updated Version - v0.1.0
     // Input - contact information
     @PostMapping("/api/saveContact")
     @ResponseBody
     public Contact saveContact(@RequestBody Contact contact) {
-        return contactrepository.save(contact);
+        try {
+            return contactrepository.save(contact);
+        } catch (Exception e) {
+            sendEmail("nimitshah240@gmail.com", "Error", e.getMessage());
+            throw new RuntimeException(e);
+        }
     }
 }
 

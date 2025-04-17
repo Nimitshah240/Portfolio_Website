@@ -302,13 +302,12 @@ function saveContact() {
 // Version - v0.0.0 - Beta
 // Developed on - 14/04/2025
 // Description - Use to get personal information as well as all the details.
-// Updated on - -
-// Updated Version - -
+// Updated on - 17/04/2025
+// Updated Version - v0.1.0
+// Update - Remove spinner activation from js and added from css, so that by opening website we can see spinner first.
 // Input - none
 function getPersonaldetails() {
   try {
-    document.getElementById('spinners').style.display = 'flex';
-    document.getElementById('spinner-content').innerText = 'Loading Nimit Shah ...';
     if (sessionStorage.getItem('personaldetails') == null) {
       fetch('/api/personaldetails')
         .then(response => response.json())
