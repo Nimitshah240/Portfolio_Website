@@ -354,6 +354,56 @@ main {
 .avatar-box {
     background: var(--bg-gradient-onyx);
     border-radius: 20px;
+    position: relative;
+    display: inline-block;
+}
+
+.avatar-box::before {
+    content: "Click Me";
+    position: absolute;
+    border-radius: 20px;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(0.01px);
+    color: black;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    font-weight: bold;
+    z-index: 1;
+    pointer-events: none;
+    font-size: 10px;
+}
+
+.blur-div-project:before,
+.blur-div::before {
+    content: "Click Me";
+    position: absolute;
+    border-radius: 30px;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 78%;
+    background: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(0.01px);
+    color: black;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    font-weight: bold;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.blur-div-project {
+    position: relative;
+}
+
+.blur-div-project::before {
+    height: 100%;
 }
 
 .info-content .name {
@@ -1518,6 +1568,7 @@ textarea.form-input::-webkit-resizer {
 
 .clients-item-n {
     text-align: center;
+    position: relative;
 }
 
 .technology {
@@ -1528,7 +1579,7 @@ textarea.form-input::-webkit-resizer {
 .project-image {
     width: 150px;
     height: 150px;
-    border-radius: 40px;
+    border-radius: 30px;
 }
 
 .certi {
@@ -1728,6 +1779,11 @@ textarea.form-input::-webkit-resizer {
 
     .avatar-box {
         border-radius: 30px;
+    }
+
+    .avatar-box::before {
+        border-radius: 30px;
+        font-size: 14px;
     }
 
     .avatar-box img {
@@ -2398,8 +2454,8 @@ textarea.form-input::-webkit-resizer {
         background-color: #39ff14;
         animation: 1.5s pulse infinite ease-in-out;
         position: absolute;
-        bottom: 111px;
-        right: 35px;
+        bottom: 5px;
+        right: 5px;
     }
 
     @keyframes pulse {

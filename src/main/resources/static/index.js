@@ -193,7 +193,9 @@ function openProject(event) {
                 const BlobUrl = URL.createObjectURL(blob);
                 project_image += `<li>
                                     <a href="${BlobUrl}" target="_blank">
-                                      <img src="${BlobUrl}" alt="client logo" class="project-image">
+                                      <figure class="blur-div-project">
+                                        <img src="${BlobUrl}" alt="client logo" class="project-image">
+                                      </figure>
                                     </a>
                                   </li>`;
               });
@@ -484,6 +486,9 @@ function setCertificate(data) {
         const li = document.createElement("li");
         li.className = "clients-item-n";
 
+        const div = document.createElement("div");
+        div.className = "blur-div";
+
         const canvas = document.createElement("canvas");
         canvas.className = "project-image certi";
         canvas.id = `pdf-canvas-${index}`;
@@ -496,7 +501,8 @@ function setCertificate(data) {
         year.className = "project-category";
         year.innerText = item.year;
 
-        li.appendChild(canvas);
+        div.appendChild(canvas);
+        li.appendChild(div);
         li.appendChild(title);
         li.appendChild(year);
         container.appendChild(li);
