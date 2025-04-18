@@ -138,8 +138,9 @@ function showToast(message, isSuccess) {
 // Version - v0.0.0 - Beta
 // Developed on - 14/04/2025
 // Description - Use to open any project to show it's details
-// Updated on - -
-// Updated Version - -
+// Updated on - 18/04/2025
+// Updated Version - v0.1.2
+// Update - Changed Link icon.
 // Input - event.target.id
 function openProject(event) {
   try {
@@ -163,8 +164,8 @@ function openProject(event) {
           if (obj.hasOwnProperty(key)) {
             link += `<p class="link"><b>${key} :</b>
                     <a href="${obj[key]}" target="_blank" class="project-link">
-                        ${obj[key]}
-                        <ion-icon name="link-outline"></ion-icon>
+                      ${obj[key]}
+                      <i class="fa-solid fa-arrow-up-right-from-square"></i>
                     </a>
                 </p>`;
           }
@@ -472,8 +473,9 @@ function getCertificate() {
 // Version - v0.0.0 - Beta
 // Developed on - 14/04/2025
 // Description - Use to render certificates on the page.
-// Updated on - -
-// Updated Version - -
+// Updated on - 18/04/2025
+// Updated Version - v0.1.2
+// Update - Change html structure to a tag so that it open pdf and not download.
 // Input - none
 function setCertificate(data) {
   try {
@@ -486,8 +488,9 @@ function setCertificate(data) {
         const li = document.createElement("li");
         li.className = "clients-item-n";
 
-        const div = document.createElement("div");
-        div.className = "blur-div";
+        const a = document.createElement("a");
+        a.href = pdfBlobUrl;
+        a.target = "_blank";
 
         const canvas = document.createElement("canvas");
         canvas.className = "project-image certi";
@@ -495,16 +498,16 @@ function setCertificate(data) {
 
         const title = document.createElement("h1");
         title.className = "project-title";
-        title.innerText = item.name;
+        title.innerHTML = item.name + '      ' + '<i class="fa-solid fa-arrow-up-right-from-square" style="color:var(--orange-yellow-crayola);"></i>';
 
         const year = document.createElement("h3");
         year.className = "project-category";
         year.innerText = item.year;
 
-        div.appendChild(canvas);
-        li.appendChild(div);
-        li.appendChild(title);
-        li.appendChild(year);
+        li.appendChild(a);
+        a.appendChild(canvas);
+        a.appendChild(title);
+        a.appendChild(year);
         container.appendChild(li);
 
         // Render thumbnail
@@ -525,9 +528,6 @@ function setCertificate(data) {
 
             page.render(renderContext);
           });
-        });
-        canvas.addEventListener("click", () => {
-          window.open(pdfBlobUrl, "_blank");
         });
       } else {
         document.getElementById("cv-icon").addEventListener("click", () => {

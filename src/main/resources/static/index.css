@@ -358,38 +358,20 @@ main {
     display: inline-block;
 }
 
-.avatar-box::before {
-    content: "Click Me";
-    position: absolute;
-    border-radius: 20px;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(255, 255, 255, 0.3);
-    backdrop-filter: blur(0.01px);
-    color: black;
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
-    font-weight: bold;
-    z-index: 1;
-    pointer-events: none;
-    font-size: 10px;
-}
-
-.blur-div-project:before,
-.blur-div::before {
-    content: "Click Me";
+.blur-div-project:before {
+    content: "\f08e";
+    padding-bottom: 5px;
+    font-weight: 900;
+    font-family: "Font Awesome 6 Free";
     position: absolute;
     border-radius: 30px;
     top: 0;
     left: 0;
     width: 100%;
     height: 78%;
-    background: rgba(255, 255, 255, 0.3);
+    background: rgba(0, 0, 0, 0.5);
     backdrop-filter: blur(0.01px);
-    color: black;
+    color: var(--orange-yellow-crayola);
     display: flex;
     align-items: flex-end;
     justify-content: center;
@@ -1781,10 +1763,6 @@ textarea.form-input::-webkit-resizer {
         border-radius: 30px;
     }
 
-    .avatar-box::before {
-        border-radius: 30px;
-        font-size: 14px;
-    }
 
     .avatar-box img {
         width: 120px;
