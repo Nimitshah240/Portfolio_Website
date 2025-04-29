@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.ui.Model;
 import org.springframework.util.StreamUtils;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -45,7 +44,6 @@ public class Restcontroller {
         this.contactrepository = contactrepository;
     }
 
-
     // Developer - Nimit Shah
     // First-Version - v0.0.0 - Beta
     // Current Version - v0.1.0
@@ -56,6 +54,9 @@ public class Restcontroller {
     // Updated on - 17/04/2025
     // Update - Added catch block with emailing on error.
     // Updated Version - v0.1.0
+    // Updated on - 29/04/2025
+    // Updated Version - v0.1.3
+    // Update - Passing method name in exception email.
     // Input - none
     @GetMapping("/")
     public String home(Model model) {
@@ -63,11 +64,10 @@ public class Restcontroller {
             ClassPathResource htmlFile = new ClassPathResource("static/index.html");
             return StreamUtils.copyToString(htmlFile.getInputStream(), StandardCharsets.UTF_8);
         } catch (Exception e) {
-            sendEmail("nimitshah240@gmail.com", "Error", e.getMessage());
+            sendEmail("nimitshah240@gmail.com", "Error", e.getMessage(), e.getStackTrace()[0].getMethodName());
             throw new RuntimeException(e);
         }
     }
-
 
     // Developer - Nimit Shah
     // First-Version - v0.0.0 - Beta
@@ -79,17 +79,19 @@ public class Restcontroller {
     // Updated on - 17/04/2025
     // Update - Added catch block with emailing on error.
     // Updated Version - v0.1.0
+    // Updated on - 29/04/2025
+    // Updated Version - v0.1.3
+    // Update - Passing method name in exception email.
     // Input - none
     @GetMapping("/api/personaldetails")
     public PersonalDetail getPersonaldetails() {
         try {
             return personaldetail;
         } catch (Exception e) {
-            sendEmail("nimitshah240@gmail.com", "Error", e.getMessage());
+            sendEmail("nimitshah240@gmail.com", "Error", e.getMessage(), e.getStackTrace()[0].getMethodName());
             throw new RuntimeException(e);
         }
     }
-
 
     // Developer - Nimit Shah
     // First-Version - v0.0.0 - Beta
@@ -101,6 +103,9 @@ public class Restcontroller {
     // Updated on - 17/04/2025
     // Update - Added catch block with emailing on error.
     // Updated Version - v0.1.0
+    // Updated on - 29/04/2025
+    // Updated Version - v0.1.3
+    // Update - Passing method name in exception email.
     // Input - none
     @GetMapping("/api/skill")
     @ResponseBody
@@ -108,11 +113,10 @@ public class Restcontroller {
         try {
             return skillrepository.findAll();
         } catch (Exception e) {
-            sendEmail("nimitshah240@gmail.com", "Error", e.getMessage());
+            sendEmail("nimitshah240@gmail.com", "Error", e.getMessage(), e.getStackTrace()[0].getMethodName());
             throw new RuntimeException(e);
         }
     }
-
 
     // Developer - Nimit Shah
     // First-Version - v0.0.0 - Beta
@@ -124,6 +128,9 @@ public class Restcontroller {
     // Updated on - 17/04/2025
     // Update - Added catch block with emailing on error.
     // Updated Version - v0.1.0
+    // Updated on - 29/04/2025
+    // Updated Version - v0.1.3
+    // Update - Passing method name in exception email.
     // Input - none
     @GetMapping("/api/certificate")
     @ResponseBody
@@ -131,11 +138,10 @@ public class Restcontroller {
         try {
             return certificaterepository.findAllByOrderByIdAsc();
         } catch (Exception e) {
-            sendEmail("nimitshah240@gmail.com", "Error", e.getMessage());
+            sendEmail("nimitshah240@gmail.com", "Error", e.getMessage(), e.getStackTrace()[0].getMethodName());
             throw new RuntimeException(e);
         }
     }
-
 
     // Developer - Nimit Shah
     // First-Version - v0.0.0 - Beta
@@ -147,6 +153,9 @@ public class Restcontroller {
     // Updated on - 17/04/2025
     // Update - Added catch block with emailing on error.
     // Updated Version - v0.1.0
+    // Updated on - 29/04/2025
+    // Updated Version - v0.1.3
+    // Update - Passing method name in exception email.
     // Input - none
     @GetMapping("/api/project")
     @ResponseBody
@@ -154,11 +163,10 @@ public class Restcontroller {
         try {
             return projectrepository.findAllByOrderByIdAsc();
         } catch (Exception e) {
-            sendEmail("nimitshah240@gmail.com", "Error", e.getMessage());
+            sendEmail("nimitshah240@gmail.com", "Error", e.getMessage(), e.getStackTrace()[0].getMethodName());
             throw new RuntimeException(e);
         }
     }
-
 
     // Developer - Nimit Shah
     // First-Version - v0.0.0 - Beta
@@ -170,6 +178,9 @@ public class Restcontroller {
     // Updated on - 17/04/2025
     // Update - Added catch block with emailing on error.
     // Updated Version - v0.1.0
+    // Updated on - 29/04/2025
+    // Updated Version - v0.1.3
+    // Update - Passing method name in exception email.
     // Input - Project Id
     @GetMapping("/api/project_image/{p_id}")
     @ResponseBody
@@ -177,11 +188,10 @@ public class Restcontroller {
         try {
             return projectimagerepository.findBypId(p_id); // or repo.findById(id).get()
         } catch (Exception e) {
-            sendEmail("nimitshah240@gmail.com", "Error", e.getMessage());
+            sendEmail("nimitshah240@gmail.com", "Error", e.getMessage(), e.getStackTrace()[0].getMethodName());
             throw new RuntimeException(e);
         }
     }
-
 
     // Developer - Nimit Shah
     // First-Version - v0.0.0 - Beta
@@ -192,6 +202,9 @@ public class Restcontroller {
     // Updated on - 17/04/2025
     // Update - Added catch block with emailing on error.
     // Updated Version - v0.1.0
+    // Updated on - 29/04/2025
+    // Updated Version - v0.1.3
+    // Update - Passing method name in exception email.
     // Input - contact information
     @PostMapping("/api/saveContact")
     @ResponseBody
@@ -199,7 +212,7 @@ public class Restcontroller {
         try {
             return contactrepository.save(contact);
         } catch (Exception e) {
-            sendEmail("nimitshah240@gmail.com", "Error", e.getMessage());
+            sendEmail("nimitshah240@gmail.com", "Error", e.getMessage(), e.getStackTrace()[0].getMethodName());
             throw new RuntimeException(e);
         }
     }

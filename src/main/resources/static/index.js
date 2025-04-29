@@ -11,6 +11,9 @@ const sidebarBtn = document.querySelector("[data-sidebar-btn]");
 // sidebar toggle functionality for mobile
 sidebarBtn.addEventListener("click", function () { elementToggleFunc(sidebar); });
 
+const controller = new AbortController();
+const timeoutId = setTimeout(() => controller.abort(), 15000); // 15 seconds
+
 // Developer - Nimit Shah
 // Version - v0.0.0 - Beta
 // Developed on - 14/04/2025
@@ -141,6 +144,9 @@ function showToast(message, isSuccess) {
 // Updated on - 18/04/2025
 // Updated Version - v0.1.2
 // Update - Changed Link icon.
+// Updated on - 29/04/2025
+// Updated Version - v0.1.3
+// Update - Add timeout in api callout.
 // Input - event.target.id
 function openProject(event) {
   try {
@@ -184,7 +190,9 @@ function openProject(event) {
         }
         document.getElementById('project-technology').innerHTML = tool;
 
-        fetch(`/api/project_image/${event.target.id}`)
+        fetch(`/api/project_image/${event.target.id}`, {
+          signal: controller.signal
+        })
           .then(response => response.json())
           .then(projectimages => {
             let project_image = '';
@@ -205,7 +213,7 @@ function openProject(event) {
 
             } catch (error) {
               document.getElementById('spinners').style.display = 'none';
-              console.error(error);
+              showToast('Failed to get project images', 'error');
             }
           }).catch(error => {
             showToast('Failed to get project images', 'error');
@@ -263,8 +271,9 @@ function closeProject() {
 // Version - v0.0.0 - Beta
 // Developed on - 14/04/2025
 // Description - Use to save contact form in the database.
-// Updated on - -
-// Updated Version - -
+// Updated on - 29/04/2025
+// Updated Version - v0.1.3
+// Update - Add timeout in api callout.
 // Input - none
 function saveContact() {
 
@@ -284,7 +293,8 @@ function saveContact() {
     headers: {
       "Content-Type": "application/json"
     },
-    body: JSON.stringify(data)
+    body: JSON.stringify(data),
+    signal: controller.signal
   })
     .then(res => res.json())
     .then(result => {
@@ -308,11 +318,16 @@ function saveContact() {
 // Updated on - 17/04/2025
 // Updated Version - v0.1.0
 // Update - Remove spinner activation from js and added from css, so that by opening website we can see spinner first.
+// Updated on - 29/04/2025
+// Updated Version - v0.1.3
+// Update - Add timeout in api callout.
 // Input - none
 function getPersonaldetails() {
   try {
     if (sessionStorage.getItem('personaldetails') == null) {
-      fetch('/api/personaldetails')
+      fetch('/api/personaldetails', {
+        signal: controller.signal
+      })
         .then(response => response.json())
         .then(data => {
           setPersonalDetails(data);
@@ -389,19 +404,23 @@ function setPersonalDetails(data) {
 // Version - v0.0.0 - Beta
 // Developed on - 14/04/2025
 // Description - Use to get skills.
-// Updated on - -
-// Updated Version - -
+// Updated on - 29/04/2025
+// Updated Version - v0.1.3
+// Update - Add timeout in api callout.
 // Input - none
 function getSkills() {
   try {
     if (sessionStorage.getItem('skills') == null) {
-      fetch("/api/skill")
+      fetch("/api/skill", {
+        signal: controller.signal
+      })
         .then(response => response.json())
         .then(data => {
           sessionStorage.setItem('skills', JSON.stringify(data));
           skills = data;
           setSkills();
         }).catch(err => {
+          document.getElementById('spinners').style.display = 'none';
           showToast('Failed to get skills', 'error');
         })
     } else {
@@ -445,18 +464,22 @@ function setSkills() {
 // Version - v0.0.0 - Beta
 // Developed on - 14/04/2025
 // Description - Use to get certificates.
-// Updated on - -
-// Updated Version - -
+// Updated on - 29/04/2025
+// Updated Version - v0.1.3
+// Update - Add timeout in api callout.
 // Input - none
 function getCertificate() {
   try {
     if (sessionStorage.getItem('certificate') == null) {
-      fetch("/api/certificate")
+      fetch("/api/certificate", {
+        signal: controller.signal
+      })
         .then(response => response.json())
         .then(data => {
           sessionStorage.setItem('certificate', JSON.stringify(data));
           setCertificate(data);
         }).catch(err => {
+          document.getElementById('spinners').style.display = 'none';
           showToast('Failed to get certificate', 'error')
         })
     } else {
@@ -583,19 +606,23 @@ function detectMimeTypeFromBase64(base64) {
 // Version - v0.0.0 - Beta
 // Developed on - 14/04/2025
 // Description - Use to get Project.
-// Updated on - -
-// Updated Version - -
+// Updated on - 29/04/2025
+// Updated Version - v0.1.3
+// Update - Add timeout in api callout.
 // Input - none
 function getProject() {
   try {
     if (sessionStorage.getItem('project') == null) {
-      fetch("/api/project")
+      fetch("/api/project", {
+        signal: controller.signal
+      })
         .then(response => response.json())
         .then(data => {
           setProject(data);
           sessionStorage.setItem('project', JSON.stringify(data));
           projectData = data;
         }).catch(error => {
+          document.getElementById('spinners').style.display = 'none';
           showToast('Failed to get project', 'error');
         });
     } else {
@@ -610,8 +637,9 @@ function getProject() {
 // Version - v0.0.0 - Beta
 // Developed on - 14/04/2025
 // Description - Use to render Project on the page.
-// Updated on - -
-// Updated Version - -
+// Updated on - 29/04/2025
+// Updated Version - v0.1.3
+// Update - Add link icon.
 // Input - none
 function setProject(data) {
   try {
@@ -626,7 +654,7 @@ function setProject(data) {
                   </div>
                   <img src="data:image/png;base64,${element.logo}" alt="${element.name}" loading="lazy">
                 </figure>
-                <h3 class="project-title" id="${element.id}">${element.name}</h3>
+                <h3 class="project-title" id="${element.id}">${element.name} <i class="fa-solid fa-arrow-up-right-from-square" id="${element.id}" style="color:var(--orange-yellow-crayola);"></i></h3>
               </button>
             </li>`
     });
