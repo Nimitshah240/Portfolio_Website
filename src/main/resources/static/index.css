@@ -1213,6 +1213,10 @@ main {
     text-align: center;
 }
 
+.project-title:hover {
+    color: var(--orange-yellow-crayola);
+}
+
 .project-category {
     color: var(--light-gray-70);
     font-size: var(--fs-6);
