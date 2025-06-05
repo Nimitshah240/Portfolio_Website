@@ -33,14 +33,13 @@ public class PortfolioWebsiteApplication {
     @Scheduled(fixedRate = 1 * 60 * 1000)
     public void callApiPeriodically() {
         try {
-            System.out.println("Nimti");
             int timeout = 20000;
             SimpleClientHttpRequestFactory clientHttpRequestFactory = new SimpleClientHttpRequestFactory();
             clientHttpRequestFactory.setConnectTimeout(timeout);
             clientHttpRequestFactory.setReadTimeout(timeout);
-//            RestTemplate restTemplate = new RestTemplate(clientHttpRequestFactory);
-//            String url1 = "https://nimitshah.onrender.com//api/project_image/999";
-//            ResponseEntity<String> response1 = restTemplate.getForEntity(url1, String.class);
+            RestTemplate restTemplate = new RestTemplate(clientHttpRequestFactory);
+            String url1 = "https://nimitshah.onrender.com//api/project_image/999";
+            ResponseEntity<String> response1 = restTemplate.getForEntity(url1, String.class);
         } catch (Exception e) {
             sendEmail("nimitshah240@gmail.com", "Error", e.getMessage(), e.getStackTrace()[0].getMethodName());
             System.err.println("API call failed: " + e.getMessage());
