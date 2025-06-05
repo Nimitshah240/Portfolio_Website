@@ -2,6 +2,7 @@ package com.example.Portfolio_Website;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -12,6 +13,7 @@ import static com.example.Portfolio_Website.Emailing.sendEmail;
 
 @SpringBootApplication
 @EnableScheduling
+@EnableCaching
 public class PortfolioWebsiteApplication {
 
     public static void main(String[] args) {

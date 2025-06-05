@@ -66,6 +66,16 @@
             <artifactId>jakarta.mail</artifactId>
             <version>1.6.7</version> <!-- or the latest stable -->
         </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-cache</artifactId>
+        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.boot</groupId>-->
+<!--            <artifactId>spring-boot-starter-data-redis</artifactId>-->
+<!--        </dependency>-->
+
     </dependencies>
 
     <build>
