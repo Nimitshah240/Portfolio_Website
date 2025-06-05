@@ -2,6 +2,7 @@ package com.example.Portfolio_Website;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -12,6 +13,7 @@ import static com.example.Portfolio_Website.Emailing.sendEmail;
 
 @SpringBootApplication
 @EnableScheduling
+@EnableCaching
 public class PortfolioWebsiteApplication {
 
     public static void main(String[] args) {
@@ -28,16 +30,17 @@ public class PortfolioWebsiteApplication {
     // Updated Version - v0.1.3
     // Update - Passing method name in exception email.
     // Input - none
-    @Scheduled(fixedRate = 5 * 60 * 1000)
+    @Scheduled(fixedRate = 1 * 60 * 1000)
     public void callApiPeriodically() {
         try {
+            System.out.println("Nimti");
             int timeout = 20000;
             SimpleClientHttpRequestFactory clientHttpRequestFactory = new SimpleClientHttpRequestFactory();
             clientHttpRequestFactory.setConnectTimeout(timeout);
             clientHttpRequestFactory.setReadTimeout(timeout);
-            RestTemplate restTemplate = new RestTemplate(clientHttpRequestFactory);
-            String url1 = "https://nimitshah.onrender.com//api/project_image/999";
-            ResponseEntity<String> response1 = restTemplate.getForEntity(url1, String.class);
+//            RestTemplate restTemplate = new RestTemplate(clientHttpRequestFactory);
+//            String url1 = "https://nimitshah.onrender.com//api/project_image/999";
+//            ResponseEntity<String> response1 = restTemplate.getForEntity(url1, String.class);
         } catch (Exception e) {
             sendEmail("nimitshah240@gmail.com", "Error", e.getMessage(), e.getStackTrace()[0].getMethodName());
             System.err.println("API call failed: " + e.getMessage());
