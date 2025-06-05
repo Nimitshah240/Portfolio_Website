@@ -30,7 +30,7 @@ public class PortfolioWebsiteApplication {
     // Updated Version - v0.1.3
     // Update - Passing method name in exception email.
     // Input - none
-    @Scheduled(fixedRate = 1 * 60 * 1000)
+    @Scheduled(fixedRate = 5 * 60 * 1000)
     public void callApiPeriodically() {
         try {
             int timeout = 20000;
