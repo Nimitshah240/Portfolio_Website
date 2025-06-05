@@ -63,6 +63,7 @@ public class Restcontroller {
     // Update - Passing method name in exception email.
     // Input - none
     @GetMapping("/")
+    @Cacheable("home")
     public String home(Model model) {
         try {
             ClassPathResource htmlFile = new ClassPathResource("static/index.html");
@@ -88,6 +89,7 @@ public class Restcontroller {
     // Update - Passing method name in exception email.
     // Input - none
     @GetMapping("/api/personaldetails")
+    @Cacheable("personaldetail")
     public PersonalDetail getPersonaldetails() {
         try {
             return personaldetail;
