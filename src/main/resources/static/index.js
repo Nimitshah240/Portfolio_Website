@@ -191,7 +191,7 @@ function openProject(event) {
         document.getElementById('project-technology').innerHTML = tool;
 
         fetch(`/api/project_image/${event.target.id}`, {
-          signal: controller.signal
+//          signal: controller.signal
         })
           .then(response => response.json())
           .then(projectimages => {
@@ -294,7 +294,7 @@ function saveContact() {
       "Content-Type": "application/json"
     },
     body: JSON.stringify(data),
-    signal: controller.signal
+//    signal: controller.signal
   })
     .then(res => res.json())
     .then(result => {
@@ -326,12 +326,15 @@ function getPersonaldetails() {
   try {
     if (sessionStorage.getItem('personaldetails') == null) {
       fetch('/api/personaldetails', {
-        signal: controller.signal
+//        signal: controller.signal
       })
         .then(response => response.json())
         .then(data => {
           setPersonalDetails(data);
           sessionStorage.setItem('personaldetails', JSON.stringify(data));
+              getSkills();
+              getCertificate();
+              getProject();
         })
         .catch(error => {
           showToast('Server error, please try again later.', 'error');
@@ -340,10 +343,6 @@ function getPersonaldetails() {
     } else {
       setPersonalDetails(JSON.parse(sessionStorage.getItem('personaldetails')));
     }
-
-    getSkills();
-    getCertificate();
-    getProject();
 
   } catch (error) {
     showToast('Failed to get data', 'error')
@@ -412,7 +411,7 @@ function getSkills() {
   try {
     if (sessionStorage.getItem('skills') == null) {
       fetch("/api/skill", {
-        signal: controller.signal
+//        signal: controller.signal
       })
         .then(response => response.json())
         .then(data => {
@@ -472,7 +471,7 @@ function getCertificate() {
   try {
     if (sessionStorage.getItem('certificate') == null) {
       fetch("/api/certificate", {
-        signal: controller.signal
+//        signal: controller.signal
       })
         .then(response => response.json())
         .then(data => {
@@ -614,7 +613,7 @@ function getProject() {
   try {
     if (sessionStorage.getItem('project') == null) {
       fetch("/api/project", {
-        signal: controller.signal
+//        signal: controller.signal
       })
         .then(response => response.json())
         .then(data => {
