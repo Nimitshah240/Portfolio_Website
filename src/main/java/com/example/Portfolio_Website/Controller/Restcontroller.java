@@ -6,6 +6,7 @@ import java.util.List;
 import com.example.Portfolio_Website.*;
 import com.example.Portfolio_Website.DTO.*;
 import com.example.Portfolio_Website.Services.*;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.core.io.ClassPathResource;
@@ -142,8 +143,14 @@ public class Restcontroller {
     @GetMapping("/api/certificate")
     @ResponseBody
     @Cacheable("certificate")
-    public List<Certificate> getCertificate() {
+    public List<Certificate> getCertificate(HttpServletRequest request) {
         try {
+            String xfHeader = request.getHeader("X-Forwarded-For");
+            if (xfHeader != null) {
+                // Handles proxies; takes first IP in the list
+                System.out.println("Nimit : " + xfHeader.split(",")[0]);
+            }
+            System.out.println("Nimit : " + request.getRemoteAddr());
             return certificaterepositoryimpl.findAllByOrderByIdAsc();
         } catch (Exception e) {
             sendEmail("nimitshah240@gmail.com", "Error", e.getMessage(), e.getStackTrace()[0].getMethodName());
